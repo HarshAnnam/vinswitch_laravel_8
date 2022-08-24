@@ -1,0 +1,180 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use Symfony\Component\HttpFoundation\Response;
+use Tymon\JWTAuth\Exceptions\JWTException;
+// use URL;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
+//use Spatie\ArrayToXml\ArrayToXml;
+use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Auth;
+use App\Mail\ForgotPasswordMail;
+
+class UserController extends Controller
+{
+
+    /* login Form */
+
+    public function login()
+    {
+        if (Auth::check()) {
+            return redirect()->route('dashboard');
+        }
+        return view('login.login');
+    }
+	
+	/* Register signup */
+	public function signup()
+    {        
+        return view('login.signup');
+    }
+
+    /* login Authentication */
+
+    public function login_auth(Request $request)
+    {
+       
+        $validator = Validator::make($request->all(), [
+            'email' => 'required',
+            'password' => 'required|regex:/(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[\W_])/u',
+        ], [
+             'email.required' => 'Please enter a username.',
+            // 'email.email' => 'Please enter valid email.',
+
+            'password.required' => 'Please enter a password.',
+            'password.regex' => 'Password must have at least 8 characters that includes at least one lowercase character, one uppercase character, one number, and one special character in (!, @, #, $, %, ^, &, *) '
+        ]);
+        
+        if ($validator->fails()) {
+            return redirect('login')
+                ->withErrors($validator)
+                ->withInput();
+        }
+        
+        if (filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
+            $credentials['email'] = $request->email;
+        }else{
+            $credentials['username'] = $request->email;
+        }
+        
+       
+        $credentials['password'] = $request->password;
+        
+        if (Auth::attempt($credentials)) {
+            $msg = "Login successfully";
+            return redirect('dashboard')->with('response', ['class' => 'info', 'msg' => $msg]);
+        } else {
+            $msg = "Username and password is incorrect";
+            return redirect('login')->with('response', ['class' => 'danger', 'msg' => $msg]);
+        }
+    }
+
+    /* Logout */
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        return redirect()->route('login');
+    }
+
+    /* Dashboard */
+
+    public function dashboard()
+    {
+        if (Auth::check()) {
+            return view('dashboard.dashboard');
+        }
+        return view('login.login');
+    }
+
+    /* Forgot password */
+
+    public function forgot_password()
+    {
+        return view('login.forgotPassword');
+    }
+
+    /* Send Forgot password Link Email */
+
+    public function sent_reset_password_link(Request $request)
+    {
+		
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+        ], [
+            'email.required' => 'Please enter a email.',
+            'email.email' => 'Please enter valid email.',
+        ]);
+        if ($validator->fails()) {
+            return redirect('forgotPassword')
+                ->withErrors($validator)
+                ->withInput();
+        }
+        $user = User::where('email', $request->email)->first();
+		//dd($user);
+        // $authToken = new AuthTokenModel();
+        // $token = $authToken->getToken();
+        // $authToken->user_id = $user->user_id;
+        // $authToken->token = $token;
+        // $authToken->save();
+        // $varificationcode = Crypt::encryptString($user->user_id . "$" . $token);
+        if ($user && $user->count() > 0) {
+            $data = [
+                // 'varificationcode' => $varificationcode,
+                'user' => $user
+            ];
+			
+            Mail::to($user->email)->send(new ForgotPasswordMail($data));
+
+            return redirect()->route('login')->with('response', ['class' => 'success', 'msg' => 'Password reset link sent successfully.']);
+        } else {
+            return redirect()->route('forgotPassword')->with('response', ['class' => 'danger', 'msg' => 'User not found!']);
+        }
+    }
+
+
+    /* Reset password Form*/
+
+    public function resetPasswordForm($id)
+    {
+        return view('login.resetPassword', compact('id'));
+    }
+
+    /* Reset password */
+
+    public function resetPassword(Request $request)
+    {
+        $request->validate(
+            [
+                'password' => 'required|regex:/(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[\W_])/u',
+                'cpassword' => 'required|same:password|regex:/(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[\W_])/u',
+            ],
+            [
+                'password.required' => 'Please enter password',
+                'password.regex' => 'Password must have at least 8 characters that includes at least one lowercase character, one uppercase character, one number, and one special character in (!, @, #, $, %, ^, &, *)',
+                'cpassword.required' => 'Please enter confirm password',
+                'cpassword.regex' => 'Password must have at least 8 characters that includes at least one lowercase character, one uppercase character, one number, and one special character in (!, @, #, $, %, ^, &, *)',
+                'cpassword.same' => 'Password and cpassword muct match',
+
+            ]
+        );
+        $update = [
+            'password' => Hash::make($request->password)
+        ];
+        if (!isset($request->user_id) && empty($request->user_id)) {
+            return redirect()->route('login')->with('response', ['class' => 'danger', 'msg' => 'User not found!']);
+        }
+        if (User::where('id', decrypt($request->user_id))->update($update)) {
+            return redirect()->route('login')->with('response', ['class' => 'success', 'msg' => 'Password has been reset successfully.']);
+        } else {
+            return redirect()->route('login')->with('response', ['class' => 'danger', 'msg' => 'something went wrong!']);
+        }
+    }
+
+}
