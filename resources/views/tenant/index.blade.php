@@ -8,6 +8,7 @@
 }
 </style>
 <input type="hidden" name="current_page" class="current_page" id="current_page" value="1">             
+<input type="hidden" name="agent_id" class="agent_id" id="agent_id" value="{{$agent_id}}">             
 
 <div class="col-lg-8 order-lg-1 order-2">
     <div class="card mb-2">
@@ -91,7 +92,7 @@
                 
                 <div class="col-sm-2">
                     <div class="text-sm-end text-center mt-2 mt-sm-0">
-                        <a href="{{url('tenanat/edit').'/'.$id}}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>                        
+                        <a href="{{url('customers').'/'.$id}}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>                        
                         <a class="action-icon"> <i class="fas fa-link fa-sm"></i></a>
                     </div>
                 </div> <!-- end col-->
@@ -712,8 +713,9 @@ $(document).ready( function () {
     // load data function     
     function loadMoreData(page,update='')
     {
+        var agent_id = $('#agent_id').val();
         search = $('#search').val();
-        url = base_url+'/customers?page=' + page + '&search=' + search;
+        url = base_url+'/customers?page=' + page + '&search=' + search + '&id=' + agent_id;
         $.ajax({
             url:url,
             type:'get',
@@ -759,7 +761,7 @@ $(document).ready( function () {
       }
     });
     // search function 
-    $("#search").on("keyup", function() {
+    $("#search").on("keyup search", function() {
         page = 1;
        
         if(($(this).val()).length > 2 || ($(this).val()).length == 0){
@@ -816,7 +818,7 @@ $(document).ready( function () {
             "_token":$("#token").val()
         };            
         $.ajax({            
-            url: base_url+'/customers/add_ajex',
+            url: base_url+'/customers/customer_add_ajex',
             method: "POST",
             data:formData,
             success: function(result){
@@ -842,7 +844,7 @@ $(document).ready( function () {
                             $(".tenantaddsubmit").attr("data-id",result.data);
                         }
                         
-
+                        
                         $(".nav-link").removeClass("active").attr("aria-expanded", "false");
                         $(".tab-pane").removeClass("show").removeClass("active");
                         $("#cred").addClass("show active");
@@ -857,7 +859,7 @@ $(document).ready( function () {
     });
     // // new credential add ajex code
     // $("body").on("click", ".credaddsubmit", function(){
-    //     // alert("cred submit");
+    // //     // alert("cred submit");
     //     var formData = {
     //         id: $(this).data('id') ? $(this).data('id') : 0,
     //         firstname_user: $("#firstname_user").val(),
@@ -870,7 +872,7 @@ $(document).ready( function () {
     //         "_token":$("#token").val()
     //     };            
     //     $.ajax({            
-    //         url: base_url+'/agent_cred_add_ajex',
+    //         url: base_url+'/customer_add_ajex',
     //         method: "POST",
     //         data:formData,
     //         success: function(result){

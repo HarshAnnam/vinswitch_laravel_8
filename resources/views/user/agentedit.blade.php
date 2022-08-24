@@ -316,6 +316,8 @@
                                         <label for="forfirstname_user" class="form-label">First Name</label>
                                         <div class="input-group">
                                             <span class="input-group-text"><i class="fas fa-user-alt"></i></span>
+                                            <?php $users_id = App\Providers\EncreptDecrept::encrept($user['id']); ?>
+                                            <input type="hidden" id="users_id" value="{{$users_id}}">
                                             <input type="text" class="form-control" id="firstname_user" placeholder="First Name" value="{{$user['firstname']}}">
                                             <div class="invalid-tooltip firstname_user">
                                                 Please Enter valid First Name.
@@ -419,7 +421,7 @@
                                                 $id = App\Providers\EncreptDecrept::encrept($record['agent_billplan_id']);
                                             @endphp                                
                                                 <tr id="billplanrow{{$id}}">
-                                                    <td>{{++$i}} </td> 
+                                                    <td>{{++$i}} </td>
                                                     <td>{{$record['name']}}</td>
                                                     <td>{{$record['type']}}</td>                                            
                                                     <td> <span class="edit-inline-ajex" data-index="commission" data-id="{{$id}}">{{$record['commission']}}</span></td>
@@ -519,6 +521,7 @@ $(document).ready( function () {
     // update Information
     $("body").on("click", ".agentdatasubmit", function(){        
     //   console.log("id = "+id);
+        
         var formData = {
             id: id,
             firstname: $("#firstname").val(),
@@ -576,14 +579,15 @@ $(document).ready( function () {
     // update credential 
     $("body").on("click", ".agentcredsubmit", function(){       
             var formData = {
-                id:id,
+                id:$("#users_id").val(),
                 firstname_user: $("#firstname_user").val(),
                 lastname_user: $("#lastname_user").val(),
                 email_user: $("#email_user").val(),
                 contact_no_user: $("#contact_no_user").val(),               
-                table: "user",
+                table: "users",
                 "_token":"{{ csrf_token() }}"
-            };            
+            }; 
+                       
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -601,7 +605,7 @@ $(document).ready( function () {
                         });
 
                     }else{                        
-                        if(result.status == 'danger' || result.data == "fail"){
+                        if(result.status == 'danger' || result.data == "fail" || result.status == 'fail'){
                             if(result.data == "Record not exist"){
                                 toster("danger", "", "","Record not found");
                             }else{
@@ -612,9 +616,7 @@ $(document).ready( function () {
                                 toster("success", "Record", "Updated");                    
                         }
 
-                    }
-                    
-                  
+                    }                  
                     
                 },           
             });        

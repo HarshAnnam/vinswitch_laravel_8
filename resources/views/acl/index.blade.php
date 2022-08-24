@@ -523,7 +523,7 @@
                                 loadMoreData(page);
                                 setTimeout(function() {
                                     toster("success", "Acl", "Added");
-                                }, 4000);
+                                }, 2000);
                             }
                         }
 

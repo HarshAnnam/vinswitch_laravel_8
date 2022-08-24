@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Imports\DidImport;
 use App\Models\Did;
 use App\Models\Vendor;
+use App\Providers\EncreptDecrept;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -103,6 +104,7 @@ class DidsController extends Controller
         return response()->json(["status" => "fail", "data" => "Phone Number Added Fail", "error" => $error]);
         
     }
+    // import dids (phone number)
     public function importinsert(Request $request){
         $error = 0;
         $request->vendor = $request->vendor_import;
@@ -151,5 +153,47 @@ class DidsController extends Controller
             $error = $e->getMessage(); 
         }
         return response()->json(["status" => "fail", "data" => "Phone Number Added Fail", "error" => $error]);
+    }
+    public function didedit($id){
+        $decrypted_id = EncreptDecrept::decrept($id);
+
+        if (Did::where("id", $decrypted_id)->count() == 0) {
+            return redirect('/dids');
+        }
+
+        $id = $decrypted_id;
+        $vendor = Vendor::all();
+        $response['vendor'] = $vendor;
+        $response['did'] = Did::where('id', $id)->first();
+        // dd($response['did']);
+        return view('did.didedit', $response);
+    }
+    // didedit page - Dids update 
+    public function didedit_update_ajex(Request $request){
+        // dd($request->all());
+        $id = EncreptDecrept::decrept($request->id);
+        // $columnindex = $request->columnindex;
+        // $value = $request->value;
+        $update['vendor_id'] = $request->vendor;
+        $update['number'] = $request->number;
+        $update['rate_center'] = $request->rate_center;
+
+        // $update[$columnindex] = $value;
+        // dd($id);
+        // dd($update);
+        try {
+            // dd($id);
+        // dd($update);
+            if (Did::where("id", $id)->count() == 0) {
+                return response()->json(["status" => "fail", "data" => "Record not exist", "error" => 0]);
+            }
+            $User_Update = Did::where("id", $id)->update($update);
+            if ($User_Update) {
+                return response()->json(["status" => "success", "data" => "Update Sucessfully ", "error" => 0]);
+            }
+            return response()->json(["status" => "success", "data" => "Something wrong", "error" => 0]);
+        } catch (\Exception $e) {
+            return response()->json(["status" => "fail", "data" => "Something wrong", "error" => $e->getMessage()]);
+        }
     }
 }

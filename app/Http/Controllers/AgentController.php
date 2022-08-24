@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Mail\ForgotPasswordMail;
 use App\Models\Agent;
-use App\Models\AgentCommissionPayment;
 use App\Models\AgentBillplan;
 use App\Models\AgentComission;
+use App\Models\AgentCommissionPayment;
 use App\Models\BillPlan;
 use App\Models\User;
 use App\Providers\EncreptDecrept;
@@ -37,6 +37,7 @@ class AgentController extends Controller
     // agentlist page
     public function agentlist(Request $request)
     {
+        
         $perpage = 4;
         $agent = Agent::orderBy('id', 'DESC');
         $activeagents = Agent::where('status', 'ACTIVE');
@@ -244,7 +245,7 @@ class AgentController extends Controller
     // add new agent model Information tab
     public function agent_add_ajex(Request $request)
     {
-
+        $check = $request->check ? $request->check : '';
         //return response()->json(["status" => "success", "data" => 25, "error" => 0]);
         $validator = Validator::make($request->all(), [
             'firstname' => 'required|min:3',
@@ -261,7 +262,15 @@ class AgentController extends Controller
         if ($validator->fails()) {
             $data_responce = ["status" => "danger", "data" => "Validation error", "error" => $validator->messages()];
             return response()->json($data_responce, 200);
+        }else{
+            if(!empty($check) && $check == 'check'){
+                // dd("here2");
+                $data_responce = ["status" => "success", "data" => "Validate", "error" => 0];
+                return response()->json($data_responce, 200);
+            }
+            
         }
+
 
         $update["account_code"] = "";
 
@@ -303,7 +312,7 @@ class AgentController extends Controller
     // add new user model Credential tab
     public function agent_cred_add_ajex(Request $request)
     {
-
+        $check = $request->check ? $request->check : '';
         // dd($request->all());
         // return response()->json(["status" => "success", "data" => 50, "error" => 0]);
         $validator = Validator::make($request->all(), [
@@ -317,9 +326,16 @@ class AgentController extends Controller
         if ($validator->fails()) {
             $data_responce = ["status" => "danger", "data" => "Validation error", "error" => $validator->messages()];
             return response()->json($data_responce, 200);
+        }else{
+            if(!empty($check) && $check == 'check'){
+                // dd("here");
+                $data_responce = ["status" => "success", "data" => "Validate", "error" => 0];
+                return response()->json($data_responce, 200);
+            }
         }
         $update["username"] = $request->firstname_user;
-        $update["tenant_id"] = $request->agent_id;
+        // $update["tenant_id"] = $request->agent_id;
+        $update["tenant_id"] = $request->agent_id_qstring;
         $update["password"] = Hash::make($request->password);
         $update["firstname"] = $request->firstname_user;
         $update["name"] = $request->firstname_user;
@@ -410,7 +426,7 @@ class AgentController extends Controller
         $decrypted_id = EncreptDecrept::decrept($id);
 
 
-        //dd($decrypted_id);
+        // dd($decrypted_id);
 
         $comissions = AgentComission::orderBy('id', 'DESC');
         $comissions = $comissions->where('agent_id', $decrypted_id);
@@ -553,12 +569,6 @@ class AgentController extends Controller
         }
         return view('user.agentedit', $response);
     }
-
-
-    
-
-
-
     // agentedit page ajex update bill plan comission
     public function agenteditbillplan_update_ajex(Request $request)
     {
@@ -646,34 +656,34 @@ class AgentController extends Controller
         }
     }
 
-    public function agent_commission_payment_ajex(Request $request){
-        $error = 0;
+    // make payment submit
+    // agent list -> agentcomission -> make payment
+    public function make_payment_submit(Request $request){
+
         $validator = Validator::make($request->all(), [
             'payment_date' => 'required',
-            'amount' => 'required',            
-            'payment_method' => 'required',
+            'amount' => 'required|numeric|between:0,9999999999.99',
+            'payment_method' => 'required',            
             'reference_number' => 'required'
         ]);
         if ($validator->fails()) {
             $data_responce = ["status" => "danger", "data" => "Validation error", "error" => $validator->messages()];
             return response()->json($data_responce, 200);
         }
-        $acpa['payment_date'] = $request->payment_date;
-        $acpa['amount'] = $request->amount;
-        $acpa['payment_method'] = $request->payment_method;
-        $acpa['reference_number'] = $request->reference_number;
-
+        $insert['agent_id'] = $request->agent_id;
+        $insert['payment_date'] = $request->payment_date;
+        $insert['amount'] = $request->amount;
+        $insert['payment_method'] = $request->payment_method;
+        $insert['reference_number'] = $request->reference_number;
         try {
-            $add_acpa = AgentCommissionPayment::create($acpa);
-            if ($add_acpa && $inserted_id = $add_acpa->id) {
-                return response()->json(["status" => "success", "data" => "Make Payment Successfully ".$inserted_id, "error" => $error]);
+            $AgentCommissionPayment = AgentCommissionPayment::create($insert);
+            if ($AgentCommissionPayment) {
+                return response()->json(["status" => "success", "data" => "Added Successfully", "error" => 0]);
             }
-        }catch(\Exception $e){
-            $error = $e->getMessage();
+            return response()->json(["status" => "fail", "data" => "Something wrong", "error" => 0]);
+        } catch (\Exception $e) {
+            return response()->json(["status" => "fail", "data" => "Something wrong", "error" => $e->getMessage()]);
         }
 
-
-        return response()->json(["status" => "fail", "data" => "Payment Failed", "error" => $error]);
-}
-
+    }
 }

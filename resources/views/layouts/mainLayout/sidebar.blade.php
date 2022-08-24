@@ -17,7 +17,7 @@
         <li>
             <a href="{{route('dids')}}">
                 <i data-feather="users"></i>
-                <span> Dids </span>
+                <span> Phone Number </span>
             </a>
         </li>
         <li>

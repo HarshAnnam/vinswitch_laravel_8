@@ -13,9 +13,9 @@ class AgentCommissionPayment extends Model
         'agent_id',
         'type',
         'amount',
-        'payment_method',
-        'payment_date',
-        'reference_number',
-        'created_at'       
+        'payment_method',        
+        'payment_date',        
+        'reference_number',        
     ];
+    
 }

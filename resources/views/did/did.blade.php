@@ -100,6 +100,21 @@
                             <div class="text-center mt-3 mt-sm-0">
                                 <div class="badge font1-14 bg-soft-info1 text-info1 @if($record['status'] == 'RESERVED') bg-soft-info text-info @elseif($record['status'] == 'AVAILABLE') bg-soft-success text-success @else bg-soft-danger text-danger @endif">{{$record['status']}}</div>
                             </div>
+                            @if($record['status'] == 'AVAILABLE')
+                                <div class="text-center mt-3 mt-sm-0">
+                                    
+                                    <!-- <a href="{{url('agentedit').'/'.$id}}" class="action-icon" title="Edit Aclnodes" data-id="{{$id}}"> 
+                                        <i class="mdi mdi-square-edit-outline"></i>
+                                    </a> -->
+                                    <a href="{{url('didedit').'/'.$id}}" class="action-icon" title="Edit Aclnodes" data-id="{{$id}}"> 
+                                        <i class="mdi mdi-square-edit-outline"></i>
+                                    </a>
+                                    
+                                    <a class="action-icon delete" data-id="{{$id}}" title="Delete Aclnodes" >
+                                        <i class="fa fa-trash text-danger h5"></i>
+                                    </a>
+                                </div>
+                            @endif
                         </div>
                     </div> <!-- end col-->
                 </div> <!-- end row -->
@@ -346,7 +361,7 @@
             }
         });
         // search function 
-        $("#search").on("keyup", function() {
+        $("#search").on("keyup search", function() {
             page = 1;
 
             if (($(this).val()).length > 2 || ($(this).val()).length == 0) {

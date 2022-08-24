@@ -3,11 +3,11 @@
 @section('content')
 <style>
     .modal-dialog {
-    max-width: 80%;
-   
-}
+        max-width: 80%;
+
+    }
 </style>
-<input type="hidden" name="current_page" class="current_page" id="current_page" value="1">             
+<input type="hidden" name="current_page" class="current_page" id="current_page" value="1">
 
 <div class="col-lg-8 order-lg-1 order-2">
     <div class="card mb-2">
@@ -35,7 +35,7 @@
             <div class="row align-items-center">
                 <div class="col-sm-4">
                     <div class="d-flex align-items-start">
-                    <p class="mb-0 text-muted">Detail</p>
+                        <p class="mb-0 text-muted">Detail</p>
                     </div>
                 </div>
                 <div class="col-sm-2">
@@ -43,69 +43,72 @@
                         <p class="mb-0 text-muted">Balance</p>
                     </div>
                 </div>
-                <div class="col-sm-4">     
-                    
+                <div class="col-sm-4">
+
                     <div class="text-center my-3 my-sm-01">
                         <p class="mb-0 text-muted">Status</p>
                     </div>
                 </div>
-                
+
                 <div class="col-sm-2">
                     <div class="text-sm-end text-center mt-2 mt-sm-0">
                         <p class="mb-0 text-muted">Action</p>
                     </div>
-                </div> 
-            </div> 
+                </div>
+            </div>
         </div>
-    </div> 
+    </div>
     <!-- title table header end -->
     <span id="agentlistrow">
-    @foreach($records as $record)
-    <!-- fist element of list start-->
-    <?php
+        @foreach($records as $record)
+        <!-- fist element of list start-->
+        <?php
         $id = App\Providers\EncreptDecrept::encrept($record['id']);
-    ?>
-   
-    <div class="card mb-2">
-        <div class="card-body">
-            <div class="row align-items-center">
-                <div class="col-sm-4">
-                    <div class="d-flex align-items-start">
-                        <!-- <img class="d-flex align-self-center me-3 rounded-circle" src="../assets/images/companies/amazon.png" alt="Generic placeholder image" height="64"> -->
-                        <div class="w-100">
-                            <h4 class="mt-0 mb-2 font-16"><span class="edit-inline-ajex" data-index="firstname" data-id="{{$id}}">{{$record['firstname']}} </span><span class="edit-inline-ajex" data-index="lastname" data-id="{{$id}}"> {{$record['lastname']}}</span></h4>
-                            <p class="mb-1"><b>Company :</b> <span class="edit-inline-ajex" data-index="company_name" data-id="{{$id}}">{{$record['company_name']}}</span></p>
-                            <p class="mb-0 w-100"><!-- <b>Email :</b> --> {{$record['email']}}</p>
+        ?>
+
+        <div class="card mb-2">
+            <div class="card-body">
+                <div class="row align-items-center">
+                    <div class="col-sm-4">
+                        <div class="d-flex align-items-start">
+                            <!-- <img class="d-flex align-self-center me-3 rounded-circle" src="../assets/images/companies/amazon.png" alt="Generic placeholder image" height="64"> -->
+                            <div class="w-100">
+                                <h4 class="mt-0 mb-2 font-16"><span class="edit-inline-ajex" data-index="firstname" data-id="{{$id}}">{{$record['firstname']}} </span><span class="edit-inline-ajex" data-index="lastname" data-id="{{$id}}"> {{$record['lastname']}}</span></h4>
+                                <p class="mb-1"><b>Company :</b> <span class="edit-inline-ajex" data-index="company_name" data-id="{{$id}}">{{$record['company_name']}}</span></p>
+                                <p class="mb-0 w-100">
+                                    <!-- <b>Email :</b> --> {{$record['email']}}
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-2">
-                    <div class="text-center my-3 my-sm-01">
-                        <p class="mb-0 text-muted">{{$record['balance']}}</p>
+                    <div class="col-sm-2">
+                        <div class="text-center my-3 my-sm-01">
+                            <p class="mb-0 text-muted">{{$record['balance']}}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-4">     
-                    
-                    <div class="text-center button-list">
-                        <a data-index="status" data-id="{{$id}}" data-value="{{$record['status']}}" class="btn btn-xs waves-effect waves-light status edit-inline-ajex status{{$id}}@if($record['status'] == 'ACTIVE') btn-success @else btn-danger @endif">Status : {{$record['status']}}</a>
-                        <a data-id="{{$id}}" data-index="suspended" data-value="{{$record['suspended']}}" class="btn btn-xs waves-effect waves-light suspended edit-inline-ajex suspended{{$id}}@if($record['suspended'] == 'NO') btn-success @else btn-danger @endif">Suspended : {{$record['suspended']}}</a>
-                        <!-- <a href="javascript: void(0);" class="btn btn-xs btn-primary waves-effect waves-light">Email</a> -->
-                    </div>
-                </div>
-                
-                <div class="col-sm-2">
-                    <div class="text-sm-end text-center mt-2 mt-sm-0">
-                    <a title="Agent Commission" class="action-icon" href="{{url('agentcomission').'/'.$id}}"><i class="far fa-money-bill-alt"></i></a>
-                        <a href="{{url('agentedit').'/'.$id}}" title="Edit" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>                        
-                        <a class="action-icon"> <i class="fas fa-link fa-sm"></i></a>
-                    </div>
-                </div> <!-- end col-->
-            </div> <!-- end row -->
-        </div>
-    </div> <!-- end card-->
+                    <div class="col-sm-4">
 
-    <!-- fist element of list end-->
-    @endforeach
+                        <div class="text-center button-list">
+                            <a data-index="status" data-id="{{$id}}" data-value="{{$record['status']}}" class="btn btn-xs waves-effect waves-light status edit-inline-ajex status{{$id}}@if($record['status'] == 'ACTIVE') btn-success @else btn-danger @endif">Status : {{$record['status']}}</a>
+                            <a data-id="{{$id}}" data-index="suspended" data-value="{{$record['suspended']}}" class="btn btn-xs waves-effect waves-light suspended edit-inline-ajex suspended{{$id}}@if($record['suspended'] == 'NO') btn-success @else btn-danger @endif">Suspended : {{$record['suspended']}}</a>
+                            <!-- <a href="javascript: void(0);" class="btn btn-xs btn-primary waves-effect waves-light">Email</a> -->
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div class="text-sm-end text-center mt-2 mt-sm-0">
+                            <a title="Tenant" class="action-icon" href="{{url('tenant').'/'.$id}}"><i class=" fas fa-user-friends"></i></a>
+                            <a title="Agent Commission" class="action-icon" href="{{url('agentcomission').'/'.$id}}"><i class="far fa-money-bill-alt"></i></a>
+                            <a href="{{url('agentedit').'/'.$id}}" title="Edit" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
+                            <a class="action-icon"> <i class="fas fa-link fa-sm"></i></a>
+                        </div>
+                    </div> <!-- end col-->
+                </div> <!-- end row -->
+            </div>
+        </div> <!-- end card-->
+
+        <!-- fist element of list end-->
+        @endforeach
     </span>
     <div class="text-center my-4">
         <a href="javascript:void(0);" class="text-danger loding" style="display:none"><i class="mdi mdi-spin mdi-loading me-1"></i> Load more </a>
@@ -132,18 +135,18 @@
                         <h3 data-plugin="counterup" class="suspendedagents" data-value="{{$suspendedagents}}">{{$suspendedagents}}</h3>
                         <p class="text-muted font-13 mb-0 text-truncate">Suspended</p>
                     </div>
-                    
+
                 </div><br><br>
-                
+
                 <!-- <div id="leads-statics" style="height: 280px;" class="morris-chart" data-colors="#4a81d4,#e3eaef"></div> -->
                 <!-- <div id="label-placement-chart" style="height: 280px;" class="ct-chart ct-golden-section" ></div> -->
-                <div id="distributed-series1" class="ct-chart ct-golden-section"  style="height: 280px;"></div>
+                <div id="distributed-series1" class="ct-chart ct-golden-section" style="height: 280px;"></div>
                 <p class="text-muted font-15 font-family-secondary mb-0 mt-1 d-flex">
                     <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-blue"></i> T - Total</span>
                     <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-success"></i> A - Active</span>
                 </p>
                 <p class="text-muted font-15 font-family-secondary mb-0 mt-1 d-flex">
-                   
+
                     <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-warning"></i> S - Suspended</span>
                     <span class="mx-2"><i class="mdi mdi-checkbox-blank-circle text-danger"></i> I - Inactive</span>
                 </p>
@@ -166,98 +169,98 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true"></button>
             </div>
             <div class="modal-body p-4">
-            <div class="card">
-            <div class="card-body">
-                <ul class="nav nav-pills nav-fill navtab-bg">
-                    <li class="nav-item">
-                        <a href="#personal" data-bs-toggle="tab" aria-expanded="true" class="nav-link active">
-                            Information
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#cred" aria-expanded="false" class="nav-link ">
-                            Credential
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#bill"  aria-expanded="false" class="nav-link">
-                            Billing
-                        </a>
-                    </li>
-                </ul>
-                <div class="tab-content">
-                    <div class="tab-pane show active" id="personal">
+                <div class="card">
+                    <div class="card-body">
+                        <ul class="nav nav-pills nav-fill navtab-bg">
+                            <li class="nav-item">
+                                <a href="#personal" data-bs-toggle="tab" aria-expanded="true" class="nav-link active">
+                                    Information
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#cred" aria-expanded="false" class="nav-link ">
+                                    Credential
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#bill" aria-expanded="false" class="nav-link">
+                                    Billing
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane show active" id="personal">
 
-                        <form class="needs-validation1 was-validated1" id="agentaddform" novalidate>
-                            <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}" />
-                            <input type="hidden" name="agentaddid" id="agentaddid" value="0" />
-                            <h5 class="mb-3 text-uppercase bg-light p-2"><i class="mdi mdi-account-circle me-1"></i> Personal Info</h5>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
+                                <form class="needs-validation1 was-validated1" id="agentaddform" novalidate>
+                                    <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}" />
+                                    <input type="hidden" name="agentaddid" id="agentaddid" value="0" />
+                                    <h5 class="mb-3 text-uppercase bg-light p-2"><i class="mdi mdi-account-circle me-1"></i> Personal Info</h5>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
 
-                                        <label for="forfirstname" class="form-label">First Name</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text"><i class="fas fa-user-alt"></i></span>
-                                            <input type="text" class="form-control" id="firstname" placeholder="First Name" value="" minlength="3" required>
-                                            <div class="invalid-tooltip firstname">
-                                                Please Enter valid First Name.
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
-                                    
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="forlastname" class="form-label">Last Name</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text"><i class="fas fa-user-alt"></i></span>
-                                            <input type="text" class="form-control" id="lastname" placeholder="Last Name" value="" minlength="3" required>
-                                            <div class="invalid-tooltip lastname">
-                                                Please Enter valid Last Name.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> <!-- end col -->
-                            </div> <!-- end row -->
+                                                <label for="forfirstname" class="form-label">First Name</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-user-alt"></i></span>
+                                                    <input type="text" class="form-control" id="firstname" placeholder="First Name" value="" minlength="3" required>
+                                                    <div class="invalid-tooltip firstname">
+                                                        Please Enter valid First Name.
+                                                    </div>
+                                                </div>
 
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="foremail" class="form-label">Email</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                            <input type="text" class="form-control" id="email" placeholder="Email" value="">
-                                            <div class="invalid-tooltip email">
-                                                Please Enter valid Last Name.
                                             </div>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="forcontact_no" class="form-label">Phone</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text"><i class="fa fa-phone"></i></span>
-                                            <input type="text" class="form-control" id="contact_no" placeholder="Phone" value="" minlength="10" required>
-                                            <div class="invalid-tooltip contact_no">
-                                                Please Enter valid Phone Number.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> <!-- end col -->
-                            </div> <!-- end row -->
 
-                           
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <label for="foraddress" class="form-label">Address</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text"><i class="fas fa-home"></i></span>
-                                            <textarea class="form-control" id="address" placeholder="Address"></textarea minlength="5" required>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="forlastname" class="form-label">Last Name</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-user-alt"></i></span>
+                                                    <input type="text" class="form-control" id="lastname" placeholder="Last Name" value="" minlength="3" required>
+                                                    <div class="invalid-tooltip lastname">
+                                                        Please Enter valid Last Name.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> <!-- end col -->
+                                    </div> <!-- end row -->
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="foremail" class="form-label">Email</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                                    <input type="text" class="form-control" id="email" placeholder="Email" value="">
+                                                    <div class="invalid-tooltip email">
+                                                        Please Enter valid Last Name.
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label for="forcontact_no" class="form-label">Phone</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                                                    <input type="text" class="form-control" id="contact_no" placeholder="Phone" value="" minlength="10" required>
+                                                    <div class="invalid-tooltip contact_no">
+                                                        Please Enter valid Phone Number.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> <!-- end col -->
+                                    </div> <!-- end row -->
+
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="mb-3">
+                                                <label for="foraddress" class="form-label">Address</label>
+                                                <div class="input-group">
+                                                    <span class="input-group-text"><i class="fas fa-home"></i></span>
+                                                    <textarea class="form-control" id="address" placeholder="Address"></textarea minlength="5" required>
                                             <div class="invalid-tooltip address">
                                                 Please Enter valid Address.
                                             </div>
@@ -546,10 +549,10 @@
                                 </thead>
                                 <tbody class="planlistrow">
                                     <?php
-                                        // echo "<pre>";
-                                        // print_r(count($billplan));
-                                        // echo "</pre>";
-                                        $i=0;
+                                    // echo "<pre>";
+                                    // print_r(count($billplan));
+                                    // echo "</pre>";
+                                    $i = 0;
                                     ?>
                                    
                                     @foreach($billplan as $record)
@@ -588,10 +591,12 @@
 
 
                                                    
-<script>    
+<script>   
+var formData1, formData2, formData3; 
 $(document).ready( function () {
     var base_url = $('#base_url').val();
     var url;
+    
     // update status, suspended fild value
     // convert editabel feild firstname, lastname, company_name
     $('body').on('click', '.edit-inline-ajex', function() { 
@@ -766,7 +771,7 @@ $(document).ready( function () {
       }
     });
     // search function 
-    $("#search").on("keyup", function() {
+    $("#search").on("keyup search", function() {
         page = 1;
        
         if(($(this).val()).length > 2 || ($(this).val()).length == 0){
@@ -807,7 +812,7 @@ $(document).ready( function () {
     // add new agent model
     $("body").on("click", ".agentaddsubmit", function(){        
     //   console.log("id = "+id);
-        var formData = {
+        formData1 = {
             id: $(this).data('id') ? $(this).data('id') : 0,
             firstname: $("#firstname").val(),
             lastname: $("#lastname").val(),
@@ -823,9 +828,9 @@ $(document).ready( function () {
             "_token":$("#token").val()
         };            
         $.ajax({            
-            url: base_url+'/agent_add_ajex',
+            url: base_url+'/agent_add_ajex?check=check',
             method: "POST",
-            data:formData,
+            data:formData1,
             success: function(result){
                 var selector;
                 $(".border-danger").removeClass("border-danger");
@@ -865,7 +870,7 @@ $(document).ready( function () {
     // new credential add ajex code
     $("body").on("click", ".credaddsubmit", function(){
         // alert("cred submit");
-        var formData = {
+        formData2 = {
             id: $(this).data('id') ? $(this).data('id') : 0,
             firstname_user: $("#firstname_user").val(),
             password: $("#hori-pass1").val(),
@@ -878,9 +883,9 @@ $(document).ready( function () {
             "_token":$("#token").val()
         };            
         $.ajax({            
-            url: base_url+'/agent_cred_add_ajex',
+            url: base_url+'/agent_cred_add_ajex?check=check',
             method: "POST",
-            data:formData,
+            data:formData2,
             success: function(result){
                 var selector;
                 $(".border-danger").removeClass("border-danger");
@@ -925,6 +930,8 @@ $(document).ready( function () {
         $(".agentaddsubmit").removeAttr("data-id");
         $(".credaddsubmit").removeAttr("data-id");
         $(".nav-link").removeClass("active").attr("aria-expanded", "false");
+        $(".nav-link[href='#cred']").attr("aria-expanded", "false").attr("data-bs-toggle", "");
+        $(".nav-link[href='#bill']").attr("aria-expanded", "false").attr("data-bs-toggle", "");
         $(".tab-pane").removeClass("show").removeClass("active");
         $("#personal").addClass("show active");
         $(".nav-link[href='#personal']").addClass("active").attr("aria-expanded", "true"); 
@@ -941,65 +948,171 @@ $(document).ready( function () {
     });
     
     $('body').on('click', '.billplanaddsubmit', function() {
-        let billplan_id = [];
-        let commission = [];
-        $('.billplan_id').each(function(){
-            billplan_id.push($(this).val());
-        });
-        $('.commission_enter').each(function(){
-            commission.push($(this).val());
-        });
-        billplan_id.pop();
-        commission.pop();
-        // console.log(billplan_id);
-        // console.log(commission);
-        // console.log($(".agentaddsubmit").data('id'));
-        var formData = {
-            agent_id: $(".agentaddsubmit").data('id') ? $(".agentaddsubmit").data('id') : 0,
-            billplan_id: billplan_id,
-            commission: commission,                         
-            table: "agent_billplan",
-            "_token":$("#token").val()
-        };            
+        // console.log(formData1);
+        // console.log(formData2);
+
         $.ajax({            
-            url: base_url+'/agent_bill_plan_add_ajex',
+            url: base_url+'/agent_add_ajex',
             method: "POST",
-            data:formData,
+            data:formData1,
             success: function(result){
+                var selector;
                 $(".border-danger").removeClass("border-danger");
                 $(".invalid-tooltip").hide();
-                let i = 0;
-                var myString, index, indexid, indexvalue,feild1,feild2,message;
                 if(result.error !=0){                        
-                        $.each(result.error, function(index, value){ 
-                            myString = index.split(".");
-                            indexvalue = myString[0];
-                            indexid = parseInt(myString[1]);
-                            feild1 = "."+indexvalue;
-                            feild2 = "."+indexvalue+"-error";
-                            message = value[0].replace(/\d+/g, '').replace('_id', '').replace('.', '');
-                            
-                            $("."+indexvalue).eq(indexid).addClass("border-danger");
-                            $("."+indexvalue+"-error").eq(indexid).show().html(message);
-
-                            
+                        $.each(result.error, function(index, value){         
+                                                       
+                            $('#'+index).addClass("border-danger").show();
+                            $('.'+index).html(value).show();
                         });
 
-                }else{               
+                }else{
+                    $(".border-danger").removeClass("border-danger");
+                    $(".invalid-tooltip").hide();
                                         
                     if(result.status == 'danger' || result.status == 'fail'){
-                        //setTimeout(function() { toster("success", "Agent", "Added"); }, 4000);
+                        // toster("danger", "Record", "Failed");
                     }else{
+                        // alert(result.data);
+                        if(result.data > 0 || result.data != 'Update Sucessfully'){
+                            $(".agentaddsubmit").attr("data-id",result.data);
+                        }
                         
-                        $('#add-new-agent').modal('hide');
-                        setTimeout(function() { toster("success", "Agent", "Added"); }, 4000);               
-                        
+
+                        $(".nav-link").removeClass("active").attr("aria-expanded", "false");
+                        $(".tab-pane").removeClass("show").removeClass("active");
+                        $("#cred").addClass("show active");
+                        $(".nav-link[href='#cred']").addClass("active").attr("aria-expanded", "true").attr("data-bs-toggle", "tab");
+                        // toster("success", "Record", "Added"); href="#cred"
                     }
-                    
-                    
+
                 }              
             },           
-        });
+        }).then((data) => {
+            console.log("then1");
+            console.log(data);
+            $.ajax({            
+                url: base_url+'/agent_cred_add_ajex?agent_id_qstring='+$(".agentaddsubmit").attr("data-id"),
+                method: "POST",
+                data:formData2,
+                success: function(result){
+                    var selector;
+                    $(".border-danger").removeClass("border-danger");
+                    $(".invalid-tooltip").hide();
+                    if(result.error !=0){                        
+                            $.each(result.error, function(index, value){         
+                                //index = (index == 'firstname_user') ? 'username' : index;
+                                index = (index == 'password') ? 'hori-pass1' : index;                          
+                                $('#'+index).addClass("border-danger").show();
+                                $('.'+index).html(value).show();
+                            });
+
+                    }else{
+                        $(".border-danger").removeClass("border-danger");
+                        $(".invalid-tooltip").hide();
+                                            
+                        if(result.status == 'danger' || result.status == 'fail'){
+                            
+                        }else{
+                            
+                            if(result.data > 0 || result.data != 'Update Sucessfully'){
+                                
+                                $(".credaddsubmit").attr("data-id",result.data);
+                            }
+                            
+
+                            $(".nav-link").removeClass("active").attr("aria-expanded", "false");
+                            $(".tab-pane").removeClass("show").removeClass("active");
+                            $("#bill").addClass("show active");
+                            $(".nav-link[href='#bill']").addClass("active").attr("aria-expanded", "true").attr("data-bs-toggle", "tab");
+                            
+                        }
+
+                    }              
+                },           
+            }).then((data) => {
+                console.log("then2");
+
+                let billplan_id = [];
+                let commission = [];
+                $('.billplan_id').each(function(){
+                    billplan_id.push($(this).val());
+                });
+                $('.commission_enter').each(function(){
+                    commission.push($(this).val());
+                });
+                billplan_id.pop();
+                commission.pop();
+                // console.log(billplan_id);
+                // console.log(commission);
+                // console.log($(".agentaddsubmit").data('id'));
+                formData3 = {
+                    agent_id: $(".agentaddsubmit").data('id') ? $(".agentaddsubmit").data('id') : 0,
+                    billplan_id: billplan_id,
+                    commission: commission,                         
+                    table: "agent_billplan",
+                    "_token":$("#token").val()
+                };            
+                $.ajax({            
+                    url: base_url+'/agent_bill_plan_add_ajex',
+                    method: "POST",
+                    data:formData3,
+                    success: function(result){
+                        $(".border-danger").removeClass("border-danger");
+                        $(".invalid-tooltip").hide();
+                        let i = 0;
+                        var myString, index, indexid, indexvalue,feild1,feild2,message;
+                        if(result.error !=0){                        
+                                $.each(result.error, function(index, value){ 
+                                    myString = index.split(".");
+                                    indexvalue = myString[0];
+                                    indexid = parseInt(myString[1]);
+                                    feild1 = "."+indexvalue;
+                                    feild2 = "."+indexvalue+"-error";
+                                    message = value[0].replace(/\d+/g, '').replace('_id', '').replace('.', '');
+                                    
+                                    $("."+indexvalue).eq(indexid).addClass("border-danger");
+                                    $("."+indexvalue+"-error").eq(indexid).show().html(message);
+
+                                    
+                                });
+
+                        }else{               
+                                                
+                            if(result.status == 'danger' || result.status == 'fail'){
+                                //setTimeout(function() { toster("success", "Agent", "Added"); }, 4000);
+                            }else{
+                                
+                                // $('#add-new-agent').modal('hide');
+                                setTimeout(function() { toster("success", "Agent", "Added"); }, 4000);               
+                                
+                            }
+                            
+                            
+                        }              
+                    },           
+                });
+
+
+
+                
+            })
+            .catch((error) => {
+                console.log(error)
+            });
+            
+        })
+        .catch((error) => {
+            console.log(error)
+        });        
+        
+
+
+
+
+
+
+        
        
     });
 

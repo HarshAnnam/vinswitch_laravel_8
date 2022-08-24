@@ -1,6 +1,6 @@
-
 <?php
 
+use App\Http\Controllers\AclController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\DidsController;
 use App\Http\Controllers\RoleController;
@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsersController;
-use App\Http\Controllers\AclController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,10 +44,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/agentlist', [AgentController::class, 'agentlist'])->name('agentlist');     
     Route::get('/agentlistajax', [AgentController::class, 'agentlistajax']);
     Route::post('/agentlist_update_ajex', [AgentController::class, 'agentlist_update_ajex']);
+    Route::get('/tenant/{id}', [TenantController::class, 'customers']);
     
     Route::post('/agent_add_ajex',[AgentController::class, 'agent_add_ajex']);
     Route::post('/agent_cred_add_ajex',[AgentController::class, 'agent_cred_add_ajex']);
     Route::post('/agent_bill_plan_add_ajex',[AgentController::class, 'agent_bill_plan_add_ajex']);
+    Route::post('/make_payment_submit',[AgentController::class, 'make_payment_submit']);
+
+
 
     // agentedit page
     Route::get('/agentedit/{id}', [AgentController::class, 'agentedit']);
@@ -56,29 +59,31 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/agenteditbillplan_update_ajex', [AgentController::class, 'agenteditbillplan_update_ajex']);
     Route::post('/addbillplan_ajex', [AgentController::class, 'addbillplan_ajex']);
     
-    Route::get('/agentcomission/{id}', [AgentController::class, 'agentcomission'])->name('agentcomission');
+    Route::get('/agentcomission/{id}', [AgentController::class, 'agentcomission']);
     Route::post('/agentcomissionajax/{id}', [AgentController::class, 'agentcomissionajax']);
-    Route::post('/agent_commission_payment_ajex', [AgentController::class, 'agent_commission_payment_ajex']);
 
     
-    // dids page 
+    // dids page (did list)
     Route::get('/dids', [DidsController::class, 'dids'])->name('dids');
     Route::post('/phone_add_ajex', [DidsController::class, 'phone_add_ajex']);
     Route::post('/importinsert', [DidsController::class, 'importinsert']);
+    Route::get('/didedit/{id}', [DidsController::class, 'didedit']);
 
-    // customers page 
+    // didedit page
+    Route::post('/didedit_update_ajex', [DidsController::class, 'didedit_update_ajex']);
+
+    // tenent (customers) page 
     Route::get('/customers', [TenantController::class, 'customers'])->name('customers');
 
-    // 
-    Route::get('/customers/{id}', [AgentController::class, 'customersedit']);
-    Route::get('/customers/add_ajex', [AgentController::class, 'customersAddAjex']);
+    // Tenent (customers) edit page
+    Route::get('/customers/{id}', [TenantController::class, 'customersedit']);
+    Route::post('customers/customer_add_ajex', [TenantController::class, 'customersAddAjex']);
 
     // acl page
     Route::get('acl', [AclController::class, 'acl'])->name('acl');
     Route::post('/acl_update_ajex', [AclController::class, 'acl_update_ajex']);
     Route::post('/acl_add_ajex', [AclController::class, 'acl_add_ajex']);
-    
-    
+     
 });
 
 // Route::group(['middleware' => ['auth']], function() {
