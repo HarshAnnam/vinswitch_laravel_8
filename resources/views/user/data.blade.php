@@ -22,25 +22,25 @@ $id = App\Providers\EncreptDecrept::encrept($record['id']);
             </div>
             <div class="col-sm-2">
                 <div class="text-center my-3 my-sm-01">
-                    <p class="mb-0 text-muted">{{$record['balance']}}</p>
+                    <p class="mb-0 text-muted">${{$record['balance']}}</p>
                 </div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
 
                 <div class="text-center button-list">
-                    <a data-index="status" data-id="{{$id}}" data-value="{{$record['status']}}" class="btn btn-xs waves-effect waves-light status edit-inline-ajex status{{$id}}@if($record['status'] == 'ACTIVE') btn-success @else btn-danger @endif">Status : {{$record['status']}}</a>
-                    <a data-id="{{$id}}" data-index="suspended" data-value="{{$record['suspended']}}" class="btn btn-xs waves-effect waves-light suspended edit-inline-ajex suspended{{$id}}@if($record['suspended'] == 'NO') btn-success @else btn-danger @endif">Suspended : {{$record['suspended']}}</a>
+                    <!-- <button type="button" class="btn btn-success rounded-pill waves-effect waves-light">Success</button> -->
+                    <a data-index="status" data-id="{{$id}}" data-value="{{$record['status']}}" class="btn btn-xs waves-effect rounded-pill waves-light status edit-inline-ajex status{{$id}}@if($record['status'] == 'ACTIVE') btn-success @else btn-danger @endif">Status : {{$record['status']}}</a>
+                    <a data-id="{{$id}}" data-index="suspended" data-value="{{$record['suspended']}}" class="btn btn-xs waves-effect rounded-pill waves-light suspended edit-inline-ajex suspended{{$id}}@if($record['suspended'] == 'NO') btn-success @else btn-danger @endif">Suspended : {{$record['suspended']}}</a>
                     <!-- <a href="javascript: void(0);" class="btn btn-xs btn-primary waves-effect waves-light">Email</a> -->
                 </div>
             </div>
 
-            <div class="col-sm-2">
-                <div class="text-sm-end text-center mt-2 mt-sm-0">
-                    <a title="Tenant" class="action-icon" href="{{url('tenant').'/'.$id}}"><i class=" fas fa-user-friends"></i></a>
-                    <a title="Agent Commission" class="action-icon" href="{{url('agentcomission').'/'.$id}}"><i class="far fa-money-bill-alt"></i></a>
-                    <a href="{{url('agentedit').'/'.$id}}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
-                    <!-- <a href="{{url('agentdelete').'/'.$id}}" class="action-icon"> <i class="mdi mdi-delete"></i></a> -->
-                    <a class="action-icon"> <i class="mdi mdi-delete"></i></a>
+            <div class="col-sm-3">
+                <div class="text-center my-3 my-sm-01">
+                    <a title="Tenant" class="action-icon" href="{{url('tenant').'/'.$id}}"><i class=" fas fa-user-friends fa-xs"></i></a>
+                    <a title="Agent Commission" class="action-icon" href="{{url('agentcomission').'/'.$id}}"><i class="far fa-money-bill-alt fa-xs"></i></a>
+                    <a href="{{url('agentedit').'/'.$id}}" title="Edit" class="action-icon"> <i class="fas fa-edit fa-xs"></i></a>
+                    <a class="action-icon"> <i class="fas fa-link fa-xs"></i></a>
                 </div>
             </div> <!-- end col-->
         </div> <!-- end row -->
@@ -148,21 +148,21 @@ $id = App\Providers\EncreptDecrept::encrept($record['id']);
             </div>
             <div class="col-sm-2">
                 <div class="text-center my-3 my-sm-01">
-                    <p class="mb-0 text-muted">{{$record['balance']}}</p>
+                    <p class="mb-0 text-muted">${{$record['balance']}}</p>
                 </div>
             </div>
             <div class="col-sm-4">
 
                 <div class="text-center button-list">
-                    <span data-index="status" data-id="{{$id}}" data-value="{{$record['status']}}" class="btn btn-xs waves-effect1 waves-light1 status edit-inline-ajex status{{$id}}@if($record['status'] == 'ACTIVE') btn-success @else btn-danger @endif" style="cursor: text;pointer-events:none;">Status : {{$record['status']}}</span>
-                    <a data-id="{{$id}}" data-index="suspended" data-value="{{$record['suspended']}}" class="btn btn-xs waves-effect waves-light suspended edit-inline-ajex suspended{{$id}}@if($record['suspended'] == 'NO') btn-success @else btn-danger @endif">Suspended : {{$record['suspended']}}</a>
+                    <span data-index="status" data-id="{{$id}}" data-value="{{$record['status']}}" class="btn btn-xs waves-effect1 rounded-pill waves-light1 status edit-inline-ajex status{{$id}}@if($record['status'] == 'ACTIVE') btn-success @else btn-danger @endif" style="cursor: text;pointer-events:none;">Status : {{$record['status']}}</span>
+                    <a data-id="{{$id}}" data-index="suspended" data-value="{{$record['suspended']}}" class="btn btn-xs waves-effect rounded-pill waves-light suspended edit-inline-ajex suspended{{$id}}@if($record['suspended'] == 'NO') btn-success @else btn-danger @endif">Suspended : {{$record['suspended']}}</a>
                 </div>
             </div>
 
             <div class="col-sm-2">
                 <div class="text-sm-end text-center mt-2 mt-sm-0">
                     <a href="{{url('tenanat/edit').'/'.$id}}" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
-                    <a class="action-icon"> <i class="fas fa-link fa-sm"></i></a>
+                    <a class="action-icon"> <i class="fas fa-link fa-sm fas "></i></a>
                 </div>
             </div> <!-- end col-->
         </div> <!-- end row -->
@@ -193,7 +193,7 @@ $id = App\Providers\EncreptDecrept::encrept($record['id']);
             <div class="col-sm-2">
                 <div class="text-center my-31 my-sm-0">
                     <!-- <p class="mb-0 text-muted"><span class="edit-inline-ajex" data-index="type" data-id="{{$id}}">{{$record['type']}} </span></p> -->
-                    <a data-index="type" data-id="{{$id}}" data-value="{{$record['type']}}" class="btn btn-xs edit-inline-ajex waves-effect waves-light status  type{{$id}}@if($record['type'] == 'allow') btn-success @else btn-danger @endif">{{$record['type']}}</a>
+                    <a data-index="type" data-id="{{$id}}" data-value="{{$record['type']}}" class="btn btn-xs edit-inline-ajex waves-effect rounded-pill waves-light status  type{{$id}}@if($record['type'] == 'allow') btn-success @else btn-danger @endif">{{$record['type']}}</a>
                 </div>
             </div>
             <div class="col-sm-4">
@@ -237,6 +237,67 @@ $id = App\Providers\EncreptDecrept::encrept($record['id']);
     <td>{{$record->balance}}</td>
     <td>{{$record->created_date}}</td>
     <td>{{$record->tenant_account_number?$record->tenant_account_number:'-'}}</td>
+</tr>
+@endforeach
+@endif
+
+
+@if($page == 'gateways')
+@foreach($records as $data)
+<!-- fist element of list start-->
+@php
+$id = App\Providers\EncreptDecrept::encrept($data['id']);
+@endphp
+
+<tr align="center">
+    <td>{{$data->gateway_name}}</td>
+    <td>{{$data->expire_seconds}}</td>
+    <td>{{$data->retry_seconds}}</td>
+    <td>
+        <span data-index="register" data-id="{{$id}}" data-value="{{$data['register']}}" class="badge update-register font1-14 register{{$id}} @if($data['register'] == 'TRUE') bg-soft-success text-success @elseif($data['register'] == 'FALSE') bg-soft-danger text-danger @else bg-soft-success text-success @endif">{{$data->register}}
+        </span>
+    </td>
+    <td> {{$data->hostname?$data->hostname:'-'}} </td>
+    <td>
+        <span class="badge font1-14 bg-soft-info1 text-info1 @if($data['outbound_default'] == 'YES') bg-soft-success text-success   @elseif($data['outbound_default'] == 'NO') bg-soft-danger text-danger @else  bg-soft-success text-success @endif">{{$data->outbound_default}}
+        </span>
+    </td>
+    <td>
+        <a class="action-icon delete" title="Delete Aclnodes"><i class="fa fa-trash text-danger h6"></i></a>
+    </td>
+</tr>
+@endforeach
+@endif
+
+@if($page == 'sofiarateplan')
+@foreach($records as $data)
+<!-- fist element of list start-->
+@php
+$id = App\Providers\EncreptDecrept::encrept($data['id']);
+@endphp
+
+<tr class="record{{$id}}">
+    <td class="text-center">{{$data->plan_name}}</td>
+    <td class="text-center">{{$data->cc}}</td>
+    <td class="text-center">{{$data->max_call_length}}</td>
+    <td class="text-center">{{$data->status}}</td>
+    <td class="text-center"></td>
+    <td class="text-center">
+        <a class="action-icon delete" data-id="{{$id}}" title="Delete"><i class="fa fa-trash text-danger h6"></i></a>
+    </td>
+
+    <!-- <td class="text-center">
+                                <span data-index="register" data-id="{{$id}}" data-value="{{$data['register']}}" class="badge update-register font1-14 register{{$id}} @if($data['register'] == 'TRUE') bg-soft-success text-success @elseif($data['register'] == 'FALSE') bg-soft-danger text-danger @else bg-soft-success text-success @endif">{{$data->register}}
+                                </span>
+                            </td>
+                            <td class="text-center"> {{$data->hostname?$data->hostname:'-'}} </td>
+                            <td class="text-center">
+                                <span class="badge font1-14 bg-soft-info1 text-info1 @if($data['outbound_default'] == 'YES') bg-soft-success text-success @elseif($data['outbound_default'] == 'NO') bg-soft-danger text-danger @else bg-soft-success text-success @endif">{{$data->outbound_default}}
+                                </span>
+                            </td>
+                            <td class="text-center">
+                                <a class="action-icon delete" data-id="{{$id}}" title="Delete Gateways"><i class="fa fa-trash text-danger h6"></i></a>
+                            </td> -->
 </tr>
 @endforeach
 @endif

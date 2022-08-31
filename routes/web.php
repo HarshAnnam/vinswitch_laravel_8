@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\GatewaysController;
+use App\Http\Controllers\SofiaRateplanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,11 +81,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/customers/{id}', [TenantController::class, 'customersedit']);
     Route::post('customers/customer_add_ajex', [TenantController::class, 'customersAddAjex']);
 
-    // acl page
+    // ACL
     Route::get('acl', [AclController::class, 'acl'])->name('acl');
     Route::post('/acl_update_ajex', [AclController::class, 'acl_update_ajex']);
     Route::post('/acl_add_ajex', [AclController::class, 'acl_add_ajex']);
      
+    // Gateways
+    Route::get('gateways',[GatewaysController::class, 'gateways'])->name('gateways');
+    Route::post('/gateways_update_ajex', [GatewaysController::class, 'gateways_update_ajex']);
+    Route::post('/gateways_add_ajex', [GatewaysController::class, 'gateway_add_ajex']);
+
+    // Termination RatePlan
+    Route::get('sofiarateplan',[SofiaRateplanController::class, 'sofiarateplan'])->name('sofiarateplan');
 });
 
 // Route::group(['middleware' => ['auth']], function() {

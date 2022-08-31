@@ -13,13 +13,13 @@
     <div class="card mb-2">
         <div class="card-body">
             <div class="row justify-content-between">
-                <div class="col-auto">
+                <div class="col-auto my-3">
                     <form class="mb-2 mb-sm-0">
                         <label for="inputPassword2" class="visually-hidden">Search</label>
                         <input type="search" class="form-control" id="search" placeholder="Search...">
                     </form>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-auto my-3">
                     <div class="text-sm-end">
                         <!-- <button type="button" class="btn btn-success waves-effect waves-light me-1"><i class="mdi mdi-cog"></i></button> -->
                         <a type="button" class="waves-effect waves-light add-new-agent" data-bs-toggle="modal" data-bs-target="#add-new-agent"><i class="mdi mdi-plus-circle h3 text-primary"></i></a>
@@ -34,7 +34,7 @@
         <div class="card-body mt-0 mb-0 pt-0 pb-0">
             <div class="row align-items-center">
                 <div class="col-sm-4">
-                    <div class="d-flex align-items-start">
+                    <div class="align-items-start">
                         <p class="mb-0 text-muted">Detail</p>
                     </div>
                 </div>
@@ -43,15 +43,15 @@
                         <p class="mb-0 text-muted">Balance</p>
                     </div>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-sm-3">
 
                     <div class="text-center my-3 my-sm-01">
                         <p class="mb-0 text-muted">Status</p>
                     </div>
                 </div>
 
-                <div class="col-sm-2">
-                    <div class="text-sm-end text-center mt-2 mt-sm-0">
+                <div class="col-sm-3">
+                    <div class="text-center my-3 my-sm-01">
                         <p class="mb-0 text-muted">Action</p>
                     </div>
                 </div>
@@ -83,24 +83,25 @@
                     </div>
                     <div class="col-sm-2">
                         <div class="text-center my-3 my-sm-01">
-                            <p class="mb-0 text-muted">{{$record['balance']}}</p>
+                            <p class="mb-0 text-muted">${{$record['balance']}}</p>
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
 
                         <div class="text-center button-list">
-                            <a data-index="status" data-id="{{$id}}" data-value="{{$record['status']}}" class="btn btn-xs waves-effect waves-light status edit-inline-ajex status{{$id}}@if($record['status'] == 'ACTIVE') btn-success @else btn-danger @endif">Status : {{$record['status']}}</a>
-                            <a data-id="{{$id}}" data-index="suspended" data-value="{{$record['suspended']}}" class="btn btn-xs waves-effect waves-light suspended edit-inline-ajex suspended{{$id}}@if($record['suspended'] == 'NO') btn-success @else btn-danger @endif">Suspended : {{$record['suspended']}}</a>
+                            <!-- <button type="button" class="btn btn-success rounded-pill waves-effect waves-light">Success</button> -->
+                            <a data-index="status" data-id="{{$id}}" data-value="{{$record['status']}}" class="btn btn-xs waves-effect rounded-pill waves-light status edit-inline-ajex status{{$id}}@if($record['status'] == 'ACTIVE') btn-success @else btn-danger @endif">Status : {{$record['status']}}</a>
+                            <a data-id="{{$id}}" data-index="suspended" data-value="{{$record['suspended']}}" class="btn btn-xs waves-effect rounded-pill waves-light suspended edit-inline-ajex suspended{{$id}}@if($record['suspended'] == 'NO') btn-success @else btn-danger @endif">Suspended : {{$record['suspended']}}</a>
                             <!-- <a href="javascript: void(0);" class="btn btn-xs btn-primary waves-effect waves-light">Email</a> -->
                         </div>
                     </div>
 
-                    <div class="col-sm-2">
-                        <div class="text-sm-end text-center mt-2 mt-sm-0">
-                            <a title="Tenant" class="action-icon" href="{{url('tenant').'/'.$id}}"><i class=" fas fa-user-friends"></i></a>
-                            <a title="Agent Commission" class="action-icon" href="{{url('agentcomission').'/'.$id}}"><i class="far fa-money-bill-alt"></i></a>
-                            <a href="{{url('agentedit').'/'.$id}}" title="Edit" class="action-icon"> <i class="mdi mdi-square-edit-outline"></i></a>
-                            <a class="action-icon"> <i class="fas fa-link fa-sm"></i></a>
+                    <div class="col-sm-3">
+                        <div class="text-center my-3 my-sm-01">
+                            <a title="Tenant" class="action-icon" href="{{url('tenant').'/'.$id}}"><i class=" fas fa-user-friends fa-xs"></i></a>
+                            <a title="Agent Commission" class="action-icon" href="{{url('agentcomission').'/'.$id}}"><i class="far fa-money-bill-alt fa-xs"></i></a>
+                            <a href="{{url('agentedit').'/'.$id}}" title="Edit" class="action-icon"> <i class="fas fa-edit fa-xs"></i></a>
+                            <a class="action-icon"> <i class="fas fa-link fa-xs"></i></a>
                         </div>
                     </div> <!-- end col-->
                 </div> <!-- end row -->

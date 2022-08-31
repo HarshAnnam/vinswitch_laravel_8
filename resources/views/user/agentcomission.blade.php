@@ -4,9 +4,6 @@
 <div class="col-12">
     <div class="card">
         <div class="card-body min-vh-100">
-
-
-
             <div class="row mb-2">
                 <div class="col-lg-8">
                     <form class="d-flex flex-wrap align-items-center">
@@ -27,9 +24,7 @@
                         <span type="button" class="btn btn-danger waves-effect waves-light mb-2 me-2 pe-none1 make-payment" data-bs-toggle="modal" data-bs-target="#make-payment">Make Payment</span>
                         <span type="button" class="btn btn-danger waves-effect waves-light mb-2 me-2 pe-none" id="balance_show"><i class="mdi mdi-basket me-1"></i> $ {{$comissions_total_amount}}</span>
                         <!-- <button type="button" class="btn btn-light waves-effect mb-2">+</button> -->
-
                     </div>
-
                 </div><!-- end col-->
             </div>
 

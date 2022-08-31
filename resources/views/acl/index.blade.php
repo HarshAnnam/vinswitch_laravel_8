@@ -88,7 +88,7 @@
                     <div class="col-sm-2">
                         <div class="text-center my-31 my-sm-0">
                             <!-- <p class="mb-0 text-muted"><span class="edit-inline-ajex" data-index="type" data-id="{{$id}}">{{$record['type']}} </span></p> -->
-                            <a data-index="type" data-id="{{$id}}" data-value="{{$record['type']}}" class="btn btn-xs edit-inline-ajex waves-effect waves-light status  type{{$id}}@if($record['type'] == 'allow') btn-success @else btn-danger @endif">{{$record['type']}}</a>
+                            <a data-index="type" data-id="{{$id}}" data-value="{{$record['type']}}" class="btn btn-xs edit-inline-ajex waves-effect rounded-pill waves-light status  type{{$id}}@if($record['type'] == 'allow') btn-success @else btn-danger @endif">{{$record['type']}}</a>
                         </div>
                     </div>
                     <div class="col-sm-4">
@@ -290,7 +290,6 @@
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-
 <script>
     $(document).ready(function() {
         var base_url = $('#base_url').val();
@@ -369,7 +368,6 @@
                 });
             }
         });
-
 
         // update editabel textbox value ajex
         $('body').on('change', '.edit-column', function() {
@@ -476,7 +474,6 @@
                 $("#acllist").text("");
                 // console.log("search call page :" + page);
                 loadMoreData(page);
-
             }
         });
 
@@ -538,6 +535,11 @@
             $(this).find("input,textarea,select").val('').find("input[type=checkbox], input[type=radio]").prop("checked", "");
         });
 
+        $('#add-new-acl').modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+
         $("body").on("click", ".delete", function() {
             id = $(this).data('id');
             console.log("delete id = " + id);
@@ -551,7 +553,7 @@
                 confirmButtonClass: "btn btn-success mt-2",
                 cancelButtonClass: "btn btn-danger ms-2 mt-2",
                 buttonsStyling: !1
-            }).then(function(e) { 
+            }).then(function(e) {
                 if (e.isConfirmed) {
 
                     var base_url = $('#base_url').val();

@@ -624,11 +624,43 @@ class AgentController extends Controller
         return response()->json(["status" => "danger", "data" => "Somthing Wrong ", "error" => 0]);
     }
 
+    // public function deleteData($id, $table, Request $request)
+    // {
+    //     $id = EncreptDecrept::decrept($id);
+    //     $flag = 0;
+
+    //     $data['id'] = $id;
+    //     $data['table'] = $table;
+
+    //     if (DB::table($data['table'])->where("id", $id)->count() == 0) {
+    //         return response()->json(["status" => "fail", "data" => "Record not exist", "error" => 0]);
+    //     }
+
+    //     if ($data['table'] == "agent_billplan") {
+    //         $update['status'] = 'INACTIVE';
+    //         $flag = 1;
+    //     }
+    //     if ($flag == 0) {
+    //         $update['delete'] = '1';
+    //     }
+
+    //     try {
+    //         $User_Update = DB::table($data['table'])->where('id', $data['id'])->update($update);
+
+    //         if ($User_Update) {
+    //             return response()->json(["status" => "success", "data" => "Record deleted sucessfully " . $User_Update, "error" => 0]);
+    //         }
+    //         return response()->json(["status" => "fail", "data" => "Somthing Wrong!", "error" => 0]);
+    //     } catch (\Exception $e) {
+    //         return response()->json(["status" => "fail", "data" => "Somthing Wrong!", "error" => $e->getMessage()]);
+    //     }
+    // }
+
     public function deleteData($id, $table, Request $request)
     {
+        // dd("Hi");
         $id = EncreptDecrept::decrept($id);
-        $flag = 0;
-
+        
         $data['id'] = $id;
         $data['table'] = $table;
 
@@ -636,25 +668,21 @@ class AgentController extends Controller
             return response()->json(["status" => "fail", "data" => "Record not exist", "error" => 0]);
         }
 
-        if ($data['table'] == "agent_billplan") {
-            $update['status'] = 'INACTIVE';
-            $flag = 1;
-        }
-        if ($flag == 0) {
-            $update['delete'] = '1';
-        }
-
         try {
-            $User_Update = DB::table($data['table'])->where('id', $data['id'])->update($update);
+            $User_delete = DB::table($data['table'])->where('id', $data['id'])->delete();
 
-            if ($User_Update) {
-                return response()->json(["status" => "success", "data" => "Record deleted sucessfully " . $User_Update, "error" => 0]);
+            if ($User_delete) {
+                return response()->json(["status" => "success", "data" => "Record deleted sucessfully " . $User_delete, "error" => 0]);
             }
             return response()->json(["status" => "fail", "data" => "Somthing Wrong!", "error" => 0]);
         } catch (\Exception $e) {
             return response()->json(["status" => "fail", "data" => "Somthing Wrong!", "error" => $e->getMessage()]);
         }
+
     }
+
+
+
 
     // make payment submit
     // agent list -> agentcomission -> make payment

@@ -79,14 +79,14 @@
                 </div>
                 <div class="col-sm-2">
                     <div class="text-center my-3 my-sm-01">
-                        <p class="mb-0 text-muted">{{$record['balance']}}</p>
+                        <p class="mb-0 text-muted">${{$record['balance']}}</p>
                     </div>
                 </div>
                 <div class="col-sm-4">     
                     
                     <div class="text-center button-list">
-                        <span data-index="status" data-id="{{$id}}" data-value="{{$record['status']}}" class="btn btn-xs waves-effect1 waves-light1 status edit-inline-ajex status{{$id}}@if($record['status'] == 'ACTIVE') btn-success @else btn-danger @endif" style="cursor: text;pointer-events:none;">Status : {{$record['status']}}</span>
-                        <a data-id="{{$id}}" data-index="suspended" data-value="{{$record['suspended']}}" class="btn btn-xs waves-effect waves-light suspended edit-inline-ajex suspended{{$id}}@if($record['suspended'] == 'NO') btn-success @else btn-danger @endif">Suspended : {{$record['suspended']}}</a>                        
+                        <span data-index="status" data-id="{{$id}}" data-value="{{$record['status']}}" class="btn btn-xs rounded-pill waves-effect1 waves-light1 status edit-inline-ajex status{{$id}}@if($record['status'] == 'ACTIVE') btn-success @else btn-danger @endif" style="cursor: text;pointer-events:none;">Status : {{$record['status']}}</span>
+                        <a data-id="{{$id}}" data-index="suspended" data-value="{{$record['suspended']}}" class="btn btn-xs rounded-pill waves-effect waves-light suspended edit-inline-ajex suspended{{$id}}@if($record['suspended'] == 'NO') btn-success @else btn-danger @endif">Suspended : {{$record['suspended']}}</a>                        
                     </div>
                 </div>
                 

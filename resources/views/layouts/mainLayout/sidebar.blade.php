@@ -6,7 +6,7 @@
                 <i data-feather="airplay"></i>
                 <span> Dashboard </span>
             </a>
-          
+
         </li>
         <li>
             <a href="{{route('agentlist')}}">
@@ -31,6 +31,29 @@
                 <i data-feather="settings"></i>
                 <span> ACL </span>
             </a>
+        </li>
+        <li>
+            <a href="#sidebarConfiguration" data-bs-toggle="collapse">
+                <i data-feather="shopping-cart"></i>
+                <span> Configuration </span>
+                <span class="menu-arrow"></span>
+            </a>
+            <div class="collapse" id="sidebarConfiguration">
+                <ul class="nav-second-level">
+                    <li class="">
+                        <a href="{{route('gateways')}}">Gateways</a>
+                    </li>
+                    <li class="">
+                        <a href="{{route('sofiarateplan')}}">Tremination RatePlan</a>
+                    </li>
+                    <li class="">
+                        <a href="ecommerce-products.html">Bill Plan</a>
+                    </li>
+                    <li class="">
+                        <a href="ecommerce-products.html">NPA/NXX</a>
+                    </li>
+                </ul>
+            </div>
         </li>
     </ul>
 </div>
